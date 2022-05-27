@@ -33,7 +33,7 @@ const Navbar = ({searchTerm, setSearchTerm, user}) => {
         />
       </div>
       <div className="flex gap-3">
-        <a  href={`profile/${user._id}`} className="hidden md:block cursor-pointer rounded-full">
+        <a  href={`https://share-me-five.vercel.app/profile/${user._id}`} className="hidden md:block cursor-pointer rounded-full">
           <img src={user.img} className="w-14 h-12 rounded-lg" alt="" />
         </a>
         <a  href={`create`} className="bg-black text-white rounded-full w-12 h-12 md:w-14 flex justify-center items-center">
