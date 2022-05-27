@@ -62,7 +62,7 @@ const PinDetail = ({pin, user}) => {
                   <MdDownloadForOffline />
                   </a>
                 </div>
-                <a href={`${pin.destination}`} target="_blank">{pin.destination?.length > 20 ?  pin.destination.slice(8, 20) : pin.destination.slice(8)}</a>
+                <a href={`${pin.destination}`} target="_blank">{pin.destination?.length > 20 ?  pin.destination?.slice(8, 20) : pin.destination?.slice(8)}</a>
             </div>
             <div>
                 <h1 className='text-4xl font-bold break-words mt-3'>
@@ -70,7 +70,7 @@ const PinDetail = ({pin, user}) => {
                 </h1>
                 <p className='mt-3'>{pin.about}</p>
             </div>
-            <a href={`profile/${author._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
+            <a href={`https://share-me-five.vercel.app/profile/${author._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
                 <img src={author.img} className="w-10 h-10 rounded-full" alt="user-profile" />
               <p className="font-bold">{author.username}</p>
             </a>
