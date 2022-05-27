@@ -19,7 +19,7 @@ export default NextAuth({
         async signIn({profile, account}) {
           await dbConnect();
           const user = await User.find({username: profile.name})
-          if(!user){
+          if(user === null || user.length === 0){
             await User.create({
               username: profile.name,
               img: profile.image
