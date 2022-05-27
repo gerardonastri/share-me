@@ -86,7 +86,7 @@ const PinDetail = ({pin, user}) => {
                     </div>
                 ))}
                 <div className="flex flex-wrap mt-6 gap-3">
-                    <a href={`profile/${user._id}`} >
+                    <a href={`/profile/${user._id}`} >
                         <img src={user.img} className="w-10 h-10 rounded-full cursor-pointer" alt="user-profile" />
                     </a>
                     <input type="text" name="" className='flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300' placeholder='Add a comment' value={comment} onChange={(e) => setComment(e.target.value)} />

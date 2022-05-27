@@ -65,7 +65,7 @@ function Home({user}) {
             <div className='absolute w-full flex justify-end items-center p-2'>
               <AiFillCloseCircle fontSize={30} className="cursor-pointer" onClick={() => setToggleSidebar(false)} />
             </div>
-            <Sidebar user={profile && profile} closeToggle={setToggleSidebar} />
+            <Sidebar user={profile && profile}closeToggle={setToggleSidebar} />
           </div>
         )}
         <div className='pb-2 flex-1 h-screen overflow-y-scroll' ref={scrollRef}>

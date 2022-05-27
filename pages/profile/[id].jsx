@@ -74,7 +74,7 @@ function Profile({user}) {
     getPins()
   }, [text]) 
   
-
+  console.log(userProfile);
   return (
     <div>
       <Head>
