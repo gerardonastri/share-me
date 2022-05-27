@@ -23,7 +23,7 @@ function Home({user}) {
   
   useEffect(() => {
     const pushUser = async () => {
-      if(!user){
+      if(user === null){
         router.push('/login')
       }
       try {
@@ -57,7 +57,7 @@ function Home({user}) {
             <img src="/logo.png" className='w-28' />
           </Link>
           <Link passHref href={`/profile/${profile._id}`}>
-            <img src={user.image}  className='w-12 h-12 py-2 mr-2 rounded-full'  />
+            <img src={user?.image}  className='w-12 h-12 py-2 mr-2 rounded-full'  />
           </Link>
         </div>
         {toggleSidebar && (
