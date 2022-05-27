@@ -62,7 +62,7 @@ const PinDetail = ({pin, user}) => {
                   <MdDownloadForOffline />
                   </a>
                 </div>
-                <a href={`${pin.destination}`} target="_blank">{pin.destination.length > 20 ?  pin.destination.slice(8, 20) : pin.destination.slice(8)}</a>
+                <a href={`${pin.destination}`} target="_blank">{pin.destination?.length > 20 ?  pin.destination.slice(8, 20) : pin.destination.slice(8)}</a>
             </div>
             <div>
                 <h1 className='text-4xl font-bold break-words mt-3'>
@@ -76,7 +76,7 @@ const PinDetail = ({pin, user}) => {
             </a>
             <h2 className="mt-5 text-2xl">Comments</h2>
             <div className="max-h-370 overflow-y-auto">
-                {pin.comments.length > 0 && pin.comments.map((comment, i) => (
+                {pin.comments?.length > 0 && pin.comments.map((comment, i) => (
                     <div className="flex gap-2 mt-5 items-center bg-white ronded-lg" key={i}>
                         <img src={comment.img} className="w-10 h-10 rounded-full cursor-pointer" alt="" />
                         <div className="flex flex-col">

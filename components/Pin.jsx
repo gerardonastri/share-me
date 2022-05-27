@@ -96,7 +96,7 @@ const Pin = ({pin, user}) => {
           </div>
         )}
       </div>
-      <a href={`profile/${user._id}`} className="flex gap-2 mt-2 items-center">
+      <a href={`profile/${author._id}`} className="flex gap-2 mt-2 items-center">
           <img src={author.img} className='w-8 h-8 rounded-full object-cover' alt="" />      
           <p className='font-semibold capitalize'>{author.username}</p>
       </a>  
