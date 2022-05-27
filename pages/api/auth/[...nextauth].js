@@ -18,10 +18,13 @@ export default NextAuth({
     callbacks: {
         async signIn({profile, account}) {
           await dbConnect();
-          await User.create({
-            username: profile.name,
-            img: profile.image
-          });
+          const user = await User.find({username: profile.name})
+          if(!user){
+            await User.create({
+              username: profile.name,
+              img: profile.image
+            });
+          }
           return true
         },
         redirect: async (url, _baseUrl)=>{
