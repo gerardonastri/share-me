@@ -6,15 +6,17 @@ import User from '../../../models/User'
 export default NextAuth({
     providers: [
       GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID || "904109985886-fln1ub2igu3uqjk4tgmrerk1lpjdcjba.apps.googleusercontent.com",
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET || "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",
-        authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       })
     ],
     jwt: {
       encryption: true
     },
     secret: "secret token",
+    pages: {
+      singIn: "/login"
+    },
     callbacks: {
         async signIn({profile, account}) {
           await dbConnect();
@@ -22,6 +24,7 @@ export default NextAuth({
           if(user === null || user.length === 0){
             await User.create({
               username: profile.name,
+              email: profile.email,
               img: profile.image
             });
           }

@@ -15,13 +15,12 @@ import { AiOutlineLogout } from 'react-icons/ai';
 
 const activeBtnStyles = 'bg-red-500 text-white font-bold p-2 rounded-full w-20 outline-none';
 const notActiveBtnStyles = 'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
-const randomImg = 'https://source.unsplash.com/1600x900/?nature,photography,techonology'
+const randomImg = 'https://picsum.photos/1600/900'
 
 function Profile({user}) {
   const router = useRouter()
   const [toggleSidebar, setToggleSidebar] = useState(false)
   const [profile, setProfile] = useState({})
-  const [userProfile, setUserProfile] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [pins, setPins] = useState(null)
   const [text, setText] = useState('created');
@@ -43,28 +42,15 @@ function Profile({user}) {
     
   }, [])
 
-  useEffect(() => {
-      const getUserProfile = async () => {
-        try {
-          const id = location.pathname.split('/')[2]
-          const res = await axiosReq.get(`user?id=${id}`)
-          setUserProfile(res.data)
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      getUserProfile()
-  }, []) 
 
   useEffect(() => {
     const getPins = async () => {
       try {
         let res;
-        const id = location.pathname.split('/')[2]
         if(text=== 'created'){
-           res = await axiosReq.get(`posts?user=${id}&created=${"true"}`)
+           res = await axiosReq.get(`posts?user=${profile?._id}&created=${"true"}&name=${profile?.username}`)
         } else {
-           res = await axiosReq.get(`posts?user=${id}&created=${"false"}`)
+           res = await axiosReq.get(`posts?user=${profile?._id}&created=${"false"}&name=${profile?.username}`)
         }
         setPins(res.data)
       } catch (error) {
@@ -74,7 +60,7 @@ function Profile({user}) {
     getPins()
   }, [text]) 
   
-  console.log(userProfile);
+
   return (
     <div>
       <Head>
@@ -111,10 +97,10 @@ function Profile({user}) {
                   <div className="relative flex flex-col mb-7">
                       <div className="flex flex-col justify-center items-center">
                         <img src={randomImg} className='w-full h-370 2xl:h-510 shadow-lg object-cover' alt="" />
-                        <img src={userProfile?.img} className='rounded-full w-20 h-20 -mt-10 shadow-xl object-cover' alt="" />
-                        <h1 className="font-bold text-3xl text-center mt-3">{userProfile?.username}</h1>
+                        <img src={profile?.img} className='rounded-full w-20 h-20 -mt-10 shadow-xl object-cover' alt="" />
+                        <h1 className="font-bold text-3xl text-center mt-3">{profile?.username}</h1>
                         <div className="absolute top-0 z-1 right-0 p-2">
-                          {profile._id === userProfile?._id && (
+                          {profile.username === user?.name && (
                             <button
                             type="button"
                             className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"

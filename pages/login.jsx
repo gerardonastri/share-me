@@ -2,17 +2,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 //import styles from '../styles/Home.module.css'
 import React from 'react'
-import GoogleLogin from 'react-google-login'
 import {FcGoogle} from 'react-icons/fc'
 import {signIn, signOut, useSession} from 'next-auth/react'
 
 export default function Login() {
 
 
-  const responseGoogle =  (response) => {
-    console.log(response);
-  }
-
+  const loginGoogle =  () => signIn("google")
   return (
     <div className={`flex justify-start items-center flex-col h-screen `}>
       <div className={`relative w-full h-full`}>
@@ -32,7 +28,7 @@ export default function Login() {
               <button
                 type="button"
                 className="bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none"
-                onClick={() => signIn()}
+                onClick={loginGoogle}
               >
                 <FcGoogle className="mr-4" /> Sign in with google
               </button>

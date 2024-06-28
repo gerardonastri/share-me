@@ -8,6 +8,7 @@ const handler =  async (req,res) => {
         const {cat} = req.query;
         const {user} = req.query;
         const {created} = req.query;
+        const {name} = req.query;
         try {
             let pins;
            if(cat){
@@ -16,7 +17,7 @@ const handler =  async (req,res) => {
              if(created == "true"){
                 pins = await Pin.find({author: user})
              } else {
-                pins = await Pin.find({save: user})
+                pins = await Pin.find({save: {$in: name}})
              }
            }
            else {

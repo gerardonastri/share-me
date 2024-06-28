@@ -14,8 +14,8 @@ import { getSession } from "next-auth/react";
 import Pins from '../components/Pins'
 
 
-function Home({user}) {
-  //const {data: session} = useSession()
+function Home() {
+  const {data: session, status} = useSession()
   const router = useRouter()
   const [toggleSidebar, setToggleSidebar] = useState(false)
   const [profile, setProfile] = useState({})
@@ -23,18 +23,22 @@ function Home({user}) {
   
   useEffect(() => {
     const pushUser = async () => {
-      if(user === null){
+      console.log(session, status);
+      if(!session && status !== 'loading'){
+       
         router.push('/login')
       }
-      try {
-        const res = await axiosReq.get(`user?user=${user.name}`)
-        setProfile(res.data)
-      } catch (error) {
-        console.log(error);
-      }
+      // try {
+      //   const user = session?.user
+      //   const res = await axiosReq.get(`user?user=${user.name}`)
+      //   setProfile(res.data)
+      // } catch (error) {
+      //   console.log(error);
+      // }
     }
-    pushUser()
+      pushUser()
   }, [])  
+  
   useEffect(() => {
     scrollRef.current.scrollTo(0, 0)
   }, [])  
@@ -49,15 +53,15 @@ function Home({user}) {
 
       <div className=' w-full flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out'>
         <div className='hidden md:flex h-screen flex-initial'>
-          <Sidebar user={profile && profile} />
+          <Sidebar user={status !== "loading" && session?.user} />
         </div>
         <div className='flex md:hidden flex-row justify-between items-center shadow-md'>
           <HiMenu fontSize={40} className="cursor-pointer" onClick={() => setToggleSidebar(true)} />
           <Link passHref href="/">
             <img src="/logo.png" className='w-28' />
           </Link>
-          <Link passHref href={`/profile/${profile._id}`}>
-            <img src={user?.image}  className='w-12 h-12 py-2 mr-2 rounded-full'  />
+          <Link passHref href={`/profile/${session?.user.name}`}>
+            <img src={status !== "loading" && session?.user.image}  className='w-12 h-12 py-2 mr-2 rounded-full'  />
           </Link>
         </div>
         {toggleSidebar && (
@@ -65,31 +69,16 @@ function Home({user}) {
             <div className='absolute w-full flex justify-end items-center p-2'>
               <AiFillCloseCircle fontSize={30} className="cursor-pointer" onClick={() => setToggleSidebar(false)} />
             </div>
-            <Sidebar user={profile && profile}closeToggle={setToggleSidebar} />
+            <Sidebar user={status !== "loading" && session?.user} closeToggle={setToggleSidebar} />
           </div>
         )}
         <div className='pb-2 flex-1 h-screen overflow-y-scroll' ref={scrollRef}>
-            <Pins user={profile && profile} />
+            <Pins user={status !== "loading" && session?.user} />
         </div>
       </div>
     </div>
   )
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-  if (!session) {
-    return {
-      props: {
-        user: null,
-      },
-    };
-  }
-  return {
-    props: {
-      user: session.user,
-    },
-  };
-}
 
 export default Home;

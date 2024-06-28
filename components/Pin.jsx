@@ -13,9 +13,11 @@ const Pin = ({pin, user}) => {
   const [postHovered, setPostHovered] = useState(false);
   const [author, setAuthor] = useState({});
 
-  let alreadySaved = pin.save.filter((item) => item === user?._id);
+  let alreadySaved = pin.save.filter((item) => item === user?.name);
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
+
+  console.log(pin.author);
   
   useEffect(() => {
       const getAuthor = async () => {
@@ -33,7 +35,7 @@ const Pin = ({pin, user}) => {
     if(alreadySaved.length === 0){
       try {
         const res = await axiosReq.post(`pin?id=${pin._id}`, {
-          user: user._id
+          user: user.name
         })
         router.reload(window.location.pathname)
       } catch (error) {
@@ -87,7 +89,7 @@ const Pin = ({pin, user}) => {
                   {pin.destination.length > 20 ?  pin.destination.slice(8, 20) : pin.destination.slice(8)}
                 </a>
               )}
-              {pin.author === user._id && (
+              {pin.author === user.name && (
                 <button onClick={(e) => {e.stopPropagation(); deletePin()}} className='bg-white p-2 opacity-70 hover:opacity-100 text-dark font-bold  text-base rounded-3xl hover:shadow-md outline-none'>
                   <AiTwotoneDelete />
                 </button>
